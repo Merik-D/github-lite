@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate, useParams, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import CVPage from './components/CVPage';
@@ -6,29 +6,30 @@ import RepositoriesList from './components/RepositoriesList';
 import RepositoryContents from './components/RepositoryContents';
 
 const App = () => {
+  const [username, setUsername] = useState('Merik-D');
   return (
     <Router>
       <Header />
       <Routes>
         <Route path="/cv" element={<CVPage />} />
-        <Route path="/" element={<RepositoriesListWrapper />} />
-        <Route path="/:repoName/*" element={<RepositoryContentsWrapper />} />
+        <Route path="/" element={<RepositoriesListWrapper username={username} />} />
+        <Route path="/:repoName/*" element={<RepositoryContentsWrapper username={username} />} />
       </Routes>
     </Router>
   );
 };
 
-const RepositoriesListWrapper = () => {
+const RepositoriesListWrapper = ({ username }) => {
   const navigate = useNavigate();
 
   const handleSelectRepo = (repoName) => {
     navigate(`/${repoName}`);
   };
 
-  return <RepositoriesList onSelectRepo={handleSelectRepo} />;
+  return <RepositoriesList username={username} onSelectRepo={handleSelectRepo} />;
 };
 
-const RepositoryContentsWrapper = () => {
+const RepositoryContentsWrapper = ({ username }) => {
   const { repoName } = useParams(); 
   const location = useLocation(); 
   const navigate = useNavigate(); 
@@ -55,6 +56,7 @@ const RepositoryContentsWrapper = () => {
 
   return (
     <RepositoryContents
+      username={username}
       repoName={repoName}
       path={currentPath}
       onBack={handleBack}

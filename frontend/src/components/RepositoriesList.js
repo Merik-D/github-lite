@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './RepositoriesList.css';
 
-const RepositoriesList = ({ onSelectRepo }) => {
+const RepositoriesList = ({ username, onSelectRepo }) => {
   const [repositories, setRepositories] = useState([]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,10 +14,10 @@ const RepositoriesList = ({ onSelectRepo }) => {
       setError(null);
 
       try {
-        const reposResponse = await axios.get('http://localhost:5173/repos/Merik-D');
+        const reposResponse = await axios.get(`http://localhost:5173/repos/${username}`);
         setRepositories(reposResponse.data);
 
-        const userResponse = await axios.get('http://localhost:5173/Merik-D');
+        const userResponse = await axios.get(`http://localhost:5173/${username}`);
         setUser(userResponse.data);
       } catch (err) {
         console.error('Error fetching data:', err);

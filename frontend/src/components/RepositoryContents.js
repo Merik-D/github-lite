@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './RepositoryContents.css';
 
-const RepositoryContents = () => {
+const RepositoryContents = ({ username}) => {
   const { repoName, '*': currentPath = '' } = useParams(); // Поточний шлях
   const [contents, setContents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +18,7 @@ const RepositoryContents = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:5173/repo/Merik-D/${repoName}`,
+          `http://localhost:5173/repo/${username}/${repoName}`,
           { params: { path: currentPath } }
         );
         setContents(response.data);
