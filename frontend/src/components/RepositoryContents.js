@@ -3,12 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './RepositoryContents.css';
 
-const RepositoryContents = ({ username}) => {
-  const { repoName, '*': currentPath = '' } = useParams(); // Поточний шлях
+const RepositoryContents = ({ username }) => {
+  const { repoName, '*': currentPath = '' } = useParams();
   const [contents, setContents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [fileContent, setFileContent] = useState('');
+  const [imageContent, setImageContent] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const RepositoryContents = ({ username}) => {
     return contents.map((item) => (
       <li key={item.sha} className="contents-item">
         {item.type === 'file' ? (
-          <button onClick={() => handleFileClick(item.download_url)}>
+          <button onClick={() => handleFileClick(item.download_url, item.name)}>
             📄 {item.name}
           </button>
         ) : (
@@ -62,14 +63,22 @@ const RepositoryContents = ({ username}) => {
     ));
   };
 
-  const handleFileClick = async (fileUrl) => {
+  const handleFileClick = async (fileUrl, fileName) => {
     setLoading(true);
     setFileContent('');
+    setImageContent(null);
     setError(null);
 
     try {
-      const response = await axios.get(fileUrl);
-      setFileContent(response.data);
+      const fileExtension = fileName.split('.').pop().toLowerCase();
+
+      if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg'].includes(fileExtension)) {
+        const response = await axios.get(fileUrl, { responseType: 'blob' });
+        setImageContent(URL.createObjectURL(response.data));
+      } else {
+        const response = await axios.get(fileUrl);
+        setFileContent(response.data);
+      }
     } catch (err) {
       setError('Unable to load file content.');
     } finally {
@@ -108,7 +117,9 @@ const RepositoryContents = ({ username}) => {
       </div>
 
       <div className="file-content">
-        {fileContent ? (
+        {imageContent ? (
+          <img src={imageContent} alt="File content" className="image-file" />
+        ) : fileContent ? (
           <pre>{numberedContent}</pre>
         ) : (
           <p>Select a file to view its content.</p>

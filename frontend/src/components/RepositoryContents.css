@@ -113,6 +113,13 @@
   }
 }
 
+.image-file {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+}
+
+
 @media (max-width: 480px) {
   .back-button {
     font-size: 12px;
