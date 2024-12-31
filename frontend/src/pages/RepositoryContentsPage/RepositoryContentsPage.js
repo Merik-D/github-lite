@@ -28,7 +28,7 @@ const RepositoryContentsPage = ({ username }) => {
         setError('Unable to load contents.');
       } finally {
         setLoading(false);
-      } 
+      }
     };
 
     fetchContents();

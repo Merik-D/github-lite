@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './RepositoriesListPage.css';
-import { getRepositories, getGitHubProfile} from '../../api/githubBackendRequests'
-import RepositoryCard from '../../components//RepositoryCard/RepositoryCard';
+import { getRepositories, getGitHubProfile } from '../../api/githubBackendRequests';
+import RepositoryCard from '../../components/RepositoryCard/RepositoryCard';
 import UserProfile from '../../components/UserProfile/UserProfile';
 import Loader from '../../components/Loader/Loader';
+import { useNavigate } from 'react-router-dom';
 
-const RepositoriesListPage = ({ username, onSelectRepo }) => {
+const RepositoriesListPage = ({ username }) => {
   const [repositories, setRepositories] = useState([]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +39,10 @@ const RepositoriesListPage = ({ username, onSelectRepo }) => {
     }
   }, [username]);
 
+  const handleSelectRepo = (repoName) => {
+    navigate(`/${repoName}`);
+  };
+
   if (loading) return <Loader />;
   if (error) return <p>{error}</p>;
 
@@ -46,7 +52,7 @@ const RepositoriesListPage = ({ username, onSelectRepo }) => {
       <h1 className="header">Repositories</h1>
       <div className="repositories-grid">
         {repositories.map((repo) => (
-          <RepositoryCard key={repo.id} repo={repo} onSelectRepo={onSelectRepo} />
+          <RepositoryCard key={repo.id} repo={repo} onSelectRepo={handleSelectRepo} />
         ))}
       </div>
     </div>
