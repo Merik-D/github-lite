@@ -1,0 +1,97 @@
+.repo-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  width: 100%;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.repo-contents,
+.file-content {
+  background-color: #fff;
+  border: 1px solid #e1e4e8;
+  border-radius: 5px;
+  padding: 15px;
+  overflow-y: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 0;
+}
+
+.back-button {
+  display: inline-block;
+  margin-bottom: 15px;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+.relative-path {
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #586069;
+}
+
+.relative-path span {
+  color: #0366d6;
+}
+
+.relative-path span:not(:last-child)::after {
+  content: ' / ';
+  color: #24292e;
+}
+
+.file-pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-y: auto;
+  height: 100%;
+  font-size: 14px;
+  color: #24292e;
+}
+
+@media (max-width: 768px) {
+  .repo-layout {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
+  }
+
+  .repo-contents,
+  .file-content {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .back-button {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+
+  .file-button,
+  .folder-button {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .relative-path {
+    font-size: 12px;
+  }
+
+  .file-pre {
+    font-size: 12px;
+  }
+}

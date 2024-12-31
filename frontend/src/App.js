@@ -1,9 +1,9 @@
 import React, { useState }  from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate, useParams, useLocation } from 'react-router-dom';
-import Header from './components/Header';
-import CVPage from './components/CVPage';
-import RepositoriesList from './components/RepositoriesList';
-import RepositoryContents from './components/RepositoryContents';
+import Header from './components/Header/Header';
+import CVPage from './pages/CVPage/CVPage'
+import RepositoriesListPage from './pages/RepositoriesListPage/RepositoriesListPage'
+import RepositoryContentsPage from './pages/RepositoryContentsPage/RepositoryContentsPage';
 
 const App = () => {
   const [username, setUsername] = useState('Merik-D');
@@ -26,7 +26,7 @@ const RepositoriesListWrapper = ({ username }) => {
     navigate(`/${repoName}`);
   };
 
-  return <RepositoriesList username={username} onSelectRepo={handleSelectRepo} />;
+  return <RepositoriesListPage username={username} onSelectRepo={handleSelectRepo} />;
 };
 
 const RepositoryContentsWrapper = ({ username }) => {
@@ -35,12 +35,12 @@ const RepositoryContentsWrapper = ({ username }) => {
   const navigate = useNavigate(); 
 
   
-  const currentPath = location.pathname.replace(`/${repoName}`, '') || ''; // Clean the path
+  const currentPath = location.pathname.replace(`/${repoName}`, '') || '';
 
   
   const handleBack = () => {
-    const parentPath = currentPath.split('/').slice(0, -1).join('/'); // Get parent path
-    navigate(`/${repoName}/${parentPath || ''}`); // Navigate to parent
+    const parentPath = currentPath.split('/').slice(0, -1).join('/');
+    navigate(`/${repoName}/${parentPath || ''}`);
   };
 
   
@@ -51,11 +51,11 @@ const RepositoryContentsWrapper = ({ username }) => {
   
   const handleFolderClick = (folderPath) => {
     const newPath = currentPath ? `${currentPath}/${folderPath}` : folderPath;
-    navigate(`/${repoName}/${newPath}`); // Navigate to the folder
+    navigate(`/${repoName}/${newPath}`);
   };
 
   return (
-    <RepositoryContents
+    <RepositoryContentsPage
       username={username}
       repoName={repoName}
       path={currentPath}

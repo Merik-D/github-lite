@@ -1,0 +1,42 @@
+.repository-card {
+    background-color: white;
+    border: 1px solid #e1e4e8;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .repository-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .repo-link {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: #0366d6;
+    text-align: left;
+    cursor: pointer;
+    padding: 0;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .repo-link:hover {
+    text-decoration: underline;
+  }
+
+  .repo-description {
+    font-size: 0.875rem;
+    color: #586069;
+    margin: 5px 0 10px;
+  }
+
+  .repo-details {
+    font-size: 0.875rem;
+    color: #586069;
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+  }

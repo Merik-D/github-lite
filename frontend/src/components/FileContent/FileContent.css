@@ -1,0 +1,15 @@
+.file-content {
+  background-color: #fff;
+  border: 1px solid #e1e4e8;
+  border-radius: 5px;
+  padding: 15px;
+  overflow-y: auto; /* Додає скрол */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 0;
+}
+
+.image-file {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+}
